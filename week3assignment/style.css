@@ -1,0 +1,122 @@
+html,body{
+background-color: green;
+background-image: url(Pics/BG.jpg);
+display: flex;
+justify-content: center;
+}
+#container{
+width: 1000px;
+padding: 10px;
+border:5px solid blue ;
+background-color: yellow;
+}
+
+#Header{
+width: 981px;
+height: 30px;
+padding: 5px;
+padding-bottom: 5px;
+color: black;
+font-family: 'Times New Roman', Times, serif;
+margin: 0%;
+border: 5px solid gray;
+background-color: dark green;
+text-align: center;
+}
+
+#Stephen{
+height: 50%;
+width: 50%;
+margin-right: auto;
+margin-left: 0%;
+display: block;
+}
+
+.NavBar{
+display: flex;
+color: white;
+font-family: 'Times New Roman', Times, serif;
+margin-top: 10px;
+border: 5px solid black;
+background-color: Blue;
+padding: 5px;
+justify-content: center;
+}
+
+.btn{
+padding-right: 20px;
+padding-left: 20px;
+border: 2px solid black;
+margin-left: 5px;
+margin-right: 5px;
+text-decoration: none;
+font-weight: bold;
+text-align: center;
+}
+
+.btn:hover{
+color:orange
+}
+
+.bio{
+width: 900px;
+padding-top: 10px;
+padding-bottom: 5px;
+background-color: Red;
+margin-top: 10px;
+border: 3px solid black;
+text-align: center;
+display: none;
+}
+
+#BioText{
+padding-right: 10px;
+padding-left: 10px;
+padding-bottom: 10px;
+background-color:Blue ;
+border: black solid 2px;
+margin-right: 2px;
+margin-left: 2px;
+font-size: 20px;
+width: 1000px;
+}
+
+.title{
+width: 989px;
+padding: 5px 0 5px 0;
+background-color:Blue ;
+text-align: center;
+border: black solid 2px;
+}
+
+.footer{
+text-align: start;
+margin-bottom: -10px;
+background-color: yellow ;
+}
+
+.contents{
+background-color:yellow ;
+display: flex;
+}
+
+#Hobbies{
+width: 650px;
+height: 300px;
+background-color: Blue ;
+border: black solid 2px;
+margin-left: 10px;
+padding-left: 10px;
+font-size: 20px;
+text-align: justify;
+}
+
+h1{
+text-align: center;
+}
+
+#Section{
+background-color: blue;
+padding: 5px;
+border: black solid 2px;
+}
