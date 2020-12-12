@@ -52,6 +52,12 @@ document.addEventListener('keyup', keyPressUp);
 
 function keyPressDown(e){
     console.log("Key Down" + e.keyCode);
+    if(e.keyCode === 38){
+        ship.up = true;
+    }
+    if(e.keyCode === 38){
+        ship.up = true;
+    }
 }
 
 function keyPressUP(e){
