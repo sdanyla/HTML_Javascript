@@ -22,10 +22,10 @@ function PlayerShip(){
 
         context.beginPath();
         context.translate(this.x, this.y);
-        context.fillstyle = "red";
+        context.fillStyle = "red";
         context.moveTo(0, -13);
         context.lineTo(10, 10);
-        context.lineTo(10, 10);
+        context.lineTo(-10, 10);
         context.lineTo(0, -13);
         context.closePath();
         context.fill();
@@ -51,23 +51,51 @@ document.addEventListener('keydown', keyPressDown);
 document.addEventListener('keyup', keyPressUp);
 
 function keyPressDown(e){
-    console.log("Key Down" + e.keyCode);
+    //console.log("Key Down" + e.keyCode);
     if(e.keyCode === 38){
         ship.up = true;
     }
-    if(e.keyCode === 38){
-        ship.up = true;
+    if(e.keyCode === 37){
+        ship.left = true;
+    }
+    if(e.keyCode === 39){
+        ship.right = true;
     }
 }
 
-function keyPressUP(e){
-    console.log("Key Up" + e.keyCode);
+function keyPressUp(e){
+    //console.log("Key Up" + e.keyCode);
+    if(e.keyCode === 38){
+        ship.up = false;
+    }
+    if(e.keyCode === 37){
+        ship.left = false;
+    }
+    if(e.keyCode === 39){
+        ship.right = false;
+    }
 }
 
 function main(){
     context.clearRect(0,0, c.width, c.height);
 
     ship.vy += gravity;
+
+    if(ship.up == true){
+        ship.vy = -10;
+    }
+
+    if(ship.left == true){
+        ship.vx = -1;
+    }
+     
+    else if(ship.right == true){
+        ship.vx = 1;
+    }
+    else{
+        ship.vx = 0;
+    }
+
     ship.draw();
     ship.move();
   
