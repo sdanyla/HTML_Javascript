@@ -59,7 +59,7 @@ function gameStart() {
         asteroids[i] = new Asteroid();
     }
     //create the instance of the ship for the game
-    ship = new PlayerShip();
+    var ship = new PlayerShip();
     
 }
 
