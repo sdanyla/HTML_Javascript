@@ -10,8 +10,8 @@ nav{
 
 #container{
     border: 1px solid black;
-    background-color: blue ;
-    padding: 7px;
+    background-color: purple ;
+    padding: 20px;
     width: 1018px;
 }
 
@@ -20,15 +20,15 @@ canvas{
 }
 
 a:link,a:visited{
-    background-color: yellow;
+    background-color: orange;
     text-decoration: none;
-    color:blue;
+    color: Green;
     padding: 10px;
     margin: 20px;
     border-radius: 10px;
 }
 
 a:hover{
-    background-color: grey;
+    background-color:Blue;
     color: Red;
 }

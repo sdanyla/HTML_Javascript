@@ -1,0 +1,20 @@
+html,body{
+    display: flex;
+    justify-content: center;
+    font-family: 'Times New Roman', Times, serif, sans-serif;
+}
+
+#container{
+    width: 820px;
+    background-color: rgb(34, 90, 51);
+    padding: 10px;
+}
+
+h2{
+   text-align: center;
+}
+
+#canvas{
+    margin-right: 10px;
+    margin-left: 10px;
+}
