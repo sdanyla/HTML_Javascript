@@ -49,6 +49,27 @@ window.onload = function () {
         play(2);
     });
 
+    function draw(rock, paper, scissors, crock, cpaper, cscissors){
+        ctx.clearRect(0,0,c.width,c.height);
+        ctx.fillRect(0,0, c.width,c.height);
+
+        ctx.save();
+        ctx.font = "30px Arial";
+        ctx.textAlign = "center";
+        ctx.fillStyle = "white";
+        ctx.fillText("Player Choices", c.width/2, 100);
+        ctx.drawImage(rock, c.width/2 - rock.width/2 - 100, 150);
+        ctx.drawImage(paper, c.width/2 - paper.width/2, 150);
+        ctx.drawImage(scissors, c.width/2 - scissors.width/2 + 100, 150);
+
+        ctx.fillText("Computer Choices", c.width/2, 325);
+        ctx.drawImage(crock, c.width/2 - rock.width/2 - 100, 375);
+        ctx.drawImage(cpaper, c.width/2 - paper.width/2, 375);
+        ctx.drawImage(cscissors, c.width/2 - scissors.width/2 + 100, 375);
+
+        ctx.fillText(result, c.width/2, 525);
+        ctx.restore();
+    }
 
     function play(playersChoice) {
         var cpuChoice = Math.floor(Math.random() * 2.9999);
@@ -111,25 +132,5 @@ window.onload = function () {
         }
     }
 
-    function draw(rock, paper, scissors, crock, cpaper, cscissors){
-        ctx.clearRect(0,0,c.width,c.height);
-        ctx.fillRect(0,0, c.width,c.height);
-
-        ctx.save();
-        ctx.font = "30px Arial";
-        ctx.textAlign = "center";
-        ctx.fillStyle = "white";
-        ctx.fillText("Player Choices", c.width/2, 100);
-        ctx.drawImage(rock, c.width/2 - rock.width/2 - 100, 150);
-        ctx.drawImage(paper, c.width/2 - paper.width/2, 150);
-        ctx.drawImage(scissors, c.width/2 - scissors.width/2 + 100, 150);
-
-        ctx.fillText("Computer Choices", c.width/2, 325);
-        ctx.drawImage(crock, c.width/2 - rock.width/2 - 100, 375);
-        ctx.drawImage(cpaper, c.width/2 - paper.width/2, 375);
-        ctx.drawImage(cscissors, c.width/2 - scissors.width/2 + 100, 375);
-
-        ctx.fillText(result, c.width/2, 525);
-        ctx.restore();
-    }
+    
 }
