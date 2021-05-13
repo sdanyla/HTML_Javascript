@@ -15,7 +15,7 @@ function randomRange(high,low){
 function Asteroids(){
     this.radius = randomRange(15,2)
     this.x = randomRange(canvas.width - this.radius, this.radius)
-    this.y = randomRange(canvas.height - this.radius, this.radius)
+    this.y = randomRange(canvas.height - this.radius, this.radius)- canvas.height
     this.vy = randomRange(10,5)
     this.color = "white"
 
@@ -172,6 +172,10 @@ function main(){
 
     for(var i = 0; i<asteroids.length; i++){
        
+        if(asteroids[i].y > canvas.height + asteroids[i].radius){
+            asteroids[i].x = randomRange(canvas.width - asteroids[i].radius, asteroids[i].radius)
+            asteroids[i].y = randomRange(canvas.height - asteroids[i].radius, asteroids[i].radius) - canvas.height
+        }
         asteroids[i].y += asteroids[i].vy
         asteroids[i].drawAsteroid()
     }
