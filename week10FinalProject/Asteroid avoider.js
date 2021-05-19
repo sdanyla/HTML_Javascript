@@ -3,7 +3,11 @@ var context = canvas.getContext("2d");
 var timer = requestAnimationFrame(main);
 var ship
 var numAsteroids = 20
-var asteroids = new Array()
+var asteroids = []
+var gameOver = false
+var gameStates = []
+var currentState= 0
+
 
 //create an instance of the Playership
 ship = new PlayerShip()
@@ -41,34 +45,60 @@ document.addEventListener('keydown', keyPressDown)
 document.addEventListener('keyup', keyPressUp)
 
 function keyPressDown(e){
-        if(e.keyCode === 87){
+    if(!gameOver) {
+        if(e.keyCode === 87) {
             ship.up = true
         }
-        if(e.keyCode === 65){
+        if(e.keyCode === 65) {
             ship.left = false
         }
-        if(e.keyCode === 68){
+        if(e.keyCode === 68) {
             ship.right = false
         }
-        if(e.keyCode === 83){
+        if(e.keyCode === 83) {
             ship.down = true
     }
+
+    if(!gameOver) {
+
+        //checking for spacebar
+        if(e.keyCode == 32) {
+            if(currentState == 2){
+                //game over screen
+                currentState = 0
+                main()
+            }
+            else{
+                //main screen
+                currentState = 1
+                gameOver = false
+                main()
+                console.log("space")
+            }
+            
+        }
+    }
+}
+        
 }
 
 function keyPressUp(e){
     //console.log("Key Up " + e.keyCode);
-        if(e.keyCode === 87){
-            ship.up = false
+        if(!gameOver){
+            if(e.keyCode === 87){
+                ship.up = false
+            }
+            if(e.keyCode === 65){
+                ship.left = false
+            }
+            if(e.keyCode === 68){
+                ship.right = false
+            }
+            if(e.keyCode === 83){
+                ship.down = false
+            }
         }
-        if(e.keyCode === 65){
-            ship.left = false
-        }
-        if(e.keyCode === 68){
-            ship.right = false
-        }
-        if(e.keyCode === 83){
-            ship.down = false
-        }
+        
         
 }
 
@@ -97,6 +127,7 @@ function PlayerShip(){
             }else{
                 this.flamelength = 30
         }
+        
         ctx.beginPath()
         ctx.fillStyle = "orange"
         ctx.moveTo(0, this.flamelength)
@@ -106,7 +137,7 @@ function PlayerShip(){
         ctx.closePath()
         ctx.fill()
         ctx.restore()
-
+        
 
         {
         ctx.save()
@@ -150,42 +181,96 @@ function PlayerShip(){
              this.vx = 0
         
 }
+//Main Screen
+gameStates[0] = function(){
+    ctx.save()
+    ctx.font = "30px Arial"
+    ctx.fillStyle = "white"
+    ctx.textureAllign = "center"
+    ctx.fillText("Asteroid Avoider", canvas.width/w, canvas.height/2-30)
+    ctx.font = "15 px Arial"
+    ctx.fillText("Press Space to Start", canvas.width/2, canvas.height/2+30)
+    ctx.restore()
+
+}
+     
+
+//Game Screen
+gameStates[1] = function(){
+//Verticle
+if(ship.up){
+    ship.vy = -10  
+}else{
+    ship.vy = 3
+
+//Horizontal Movement    
+if(ship.left){
+    ship.vx = -3
+}else if(ship.right){
+    ship.vx = 3
+}else{
+    ship.vx = 0
+}
+//asteroids and there posityions 
+for(var i = 0; i<asteroids.length; i++){
+    var dX = ship.x - astroids[i].x
+    var dY = ship.y - asteroids[i].y
+    var distance = Math.sqrt((dX*dX)+(dY*dY))
+
+    if(detectCollision(distance, (ship.h/2 + asteroids[i].radius))){
+        console.log("hit asteroid")
+        gameOver = true
+        currentState = 2
+        main()
+    }
+   
+    if(asteroids[i].y > canvas.height + asteroids[i].radius){
+        asteroids[i].x = randomRange(canvas.width - asteroids[i].radius, asteroids[i].radius)
+        asteroids[i].y = randomRange(canvas.height - asteroids[i].radius, asteroids[i].radius) - canvas.height
+    }
+    if (!gameOver){
+    asteroids[i].y += asteroids[i].vy
+    asteroids[i].drawAsteroid()
+    }
+}
+if(!gameOver){
+ship.move()
+ship.drawShip()
+}
+
+}
+
+}
+//Game Over
+gameStates[2] = function(){
+    ctx.save()
+    ctx.font = "30px Arial"
+    ctx.fillStyle = "white"
+    ctx.textureAllign = "center"
+    ctx.fillText("Game Over", canvas.width/w, canvas.height/2-30)
+    ctx.font = "15 px Arial"
+    ctx.fillText("Press Space to Restart", canvas.width/2, canvas.height/2 + 20)
+    ctx.restore()
+}
+
 function main(){
     //clear canvas
     //shipY-=1
     degree++;
     ctx.clearRect(0,0,canvas.width, canvas.height)
-    //Verticle
-    if(ship.up){
-        ship.vy = -10  
-    }else{
-        ship.vy = 3
 
-    //Horizontal Movement    
-    if(ship.left){
-        ship.vx = -3
-    }else if(ship.right){
-        ship.vx = 3
-    }else{
-        ship.vx = 0
-    }
-
-    for(var i = 0; i<asteroids.length; i++){
-       
-        if(asteroids[i].y > canvas.height + asteroids[i].radius){
-            asteroids[i].x = randomRange(canvas.width - asteroids[i].radius, asteroids[i].radius)
-            asteroids[i].y = randomRange(canvas.height - asteroids[i].radius, asteroids[i].radius) - canvas.height
-        }
-        asteroids[i].y += asteroids[i].vy
-        asteroids[i].drawAsteroid()
-    }
+    gameStates[currentState]()
    
-    ship.move()
-    ship.drawShip()
+    if(!gamOver){
+        timer = requestAnimationFrame(main)
+    }
+}
+function detectCollision(distance, calcDistance){ 
+    return distance < calcDistance
+}
 
-    timer = requestAnimationFrame(main)
 }
+
 }
-}
-}
+
 }
