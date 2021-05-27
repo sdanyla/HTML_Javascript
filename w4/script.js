@@ -4,7 +4,11 @@ var ctx = c.getContext('2d');
 
 //examples for loading images to cavas
 var vehicle = new Image();
-vehicle.src = '';
+vehicle.src = 'images/car.png';
+
+vehicle.onload = function(){
+    main()
+}
 
 var x = 0;
 
@@ -33,10 +37,10 @@ console.log(someNum);
 
 var car = new GameObject();
 car.y = c.height / 1.4
-car.w = 100;
+
 car.x = 5;
 car.color = "green";
-//car.image = vehicle;
+car.image = vehicle;
 
 
 function main() {

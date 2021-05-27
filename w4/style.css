@@ -7,7 +7,7 @@ body{
     display: flex;
     justify-content: center;
     font-family: 'Syne Mono', monospace;
-    background-color: green;
+    background-color: skyblue;
 }
 
 #container{
@@ -40,7 +40,7 @@ canvas{
 }
 
 footer{
-    background-color: white;
+    background-color: red;
     margin-bottom: 10px;
     text-align: center;
     line-height: 50px;

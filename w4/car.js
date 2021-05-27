@@ -12,9 +12,9 @@ function GameObject(){
     this.x = 50;
     this.y = 200;
     this.w = 60;
-    this.h = 50;
+    this.h = 60;
     this.color ='purple';
-    this.image = vehicle;
+    this.image;
 
     this.draw = function(){
         ctx.fillStyle = this.color;

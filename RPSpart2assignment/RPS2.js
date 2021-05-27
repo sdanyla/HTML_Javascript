@@ -27,6 +27,7 @@ window.onload = function () {
     rps[0] = "Rock";
     rps[1] = "Paper";
     rps[2] = "Scissors";
+    rps[3] = "Spock";
 
     //Array of buttons
      btn[0].innerHTML = rps[0];
