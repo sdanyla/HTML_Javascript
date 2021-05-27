@@ -13,7 +13,7 @@ function GameObject(){
     this.y = 200;
     this.w = 60;
     this.h = 60;
-    this.color ='purple';
+    this.color ='orange';
     this.image;
 
     this.draw = function(){

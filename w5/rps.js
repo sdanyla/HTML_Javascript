@@ -15,18 +15,17 @@
     
     hrock.src = "images/Rock.jpg";
     hpaper.src = "images/paper.jpg";
-    hscissor.src = "images/Scissorscut.jpg";
+    hscissor.src = "images/Scissors.jpg";
     
     hrock.onload = function(){
-        draw(hrock, paper,scissor, hrock, paper,scissor);
+        draw(rock, paper,scissor, rock, paper,scissor);
     }
-    
     hpaper.onload = function(){
-        draw(rock, hpaper,scissor, rock, hpaper,scissor);
+        draw(rock, paper,scissor, rock, paper,scissor);
     }
     
     hscissor.onload = function(){
-        draw(rock, paper,hscissor, rock, paper,hscissor);
+        draw(rock, paper,scissor, rock, paper,scissor);
     }
 
     var results = "Pick an option from the buttons above."
@@ -115,34 +114,35 @@ function play(playersChoice){
                 //alert("Cpu chose Rock, You Tied");
             }
             else if(cpuChoice === 1){
-                draw(rock, hpaper, scissor, rock, hpaper, scissor)
+                draw(hrock, paper, scissor, rock, hpaper, scissor)
               //alert("Cpu choses Paper, You Lose!");  
             }
             else{
-                draw(rock, paper, hscissor, rock, paper, hscissor)
+                draw(hrock, paper, scissor, rock, paper, hscissor)
                 //alert("Cpu choses Scissors, You Win!");  
             }
         break;
         case 1: 
             if(cpuChoice === 0){
-                draw(rock, hpaper, scissor, rock, hpaper, scissor)
+                draw(rock, hpaper, scissor, hrock, paper, scissor)
                 //alert("Cpu chose Rock, You Win");
             }
             else if(cpuChoice === 1){
+                draw(rock, hpaper, scissor, rock, hpaper, scissor)
                 //alert("Cpu choses Paper, You Tied!");  
             }
             else{
-                draw(rock, paper, hscissor, rock, paper, hscissor)
+                draw(rock, hpaper, scissor, rock, paper, hscissor)
                 //alert("Cpu choses Scissors, You Lose!");  
             }
         break;
         case 2: 
             if(cpuChoice === 0){
-                draw(hrock, paper, scissor, hrock, paper, scissor)
+                draw(rock, paper, hscissor, hrock, paper, scissor)
                 //alert("Cpu chose Rock, You Lose");
             }
             else if(cpuChoice === 1){
-                draw(rock, hpaper, scissor, rock, hpaper, scissor)
+                draw(rock, paper, hscissor, rock, hpaper, scissor)
                 //alert("Cpu choses Paper, You Win!");  
             }
             else{
