@@ -1,137 +1,201 @@
-window.onload = function () {
+//window.onload = function(){
     var c = document.querySelector("canvas");
     var ctx = c.getContext("2d");
-    var result = "Select a button from above to choose.";
 
-    //create instances of images
     var rock = new Image();
     var paper = new Image();
-    var scissors = new Image();
+    var scissor = new Image();
+    var spock = new Image();
     var hrock = new Image();
     var hpaper = new Image();
-    var hscissors = new Image();
-
-    rock.src = "images/rock.jpg"
-    paper.src = "images/paper.jpg"
-    scissors.src = "images/scissors.jpg"
-    hrock.src = "images/rock2.jpg"
-    hpaper.src = "images/paper2.jpg"
-    hscissors.src = "images/scissors2.jpg"
-
-    hscissors.onload = function(){
-        draw(rock, paper,scissors,rock, paper, scissors);
+    var hscissor = new Image();
+    var hspock = new Image();
+    
+    rock.src = "images/Rockcut.jpg";
+    paper.src = "images/papercut.jpg";
+    scissor.src = "images/Scissorscut.jpg";
+    spock.src = "images/spock.jpg";
+    
+    hrock.src = "images/Rock.jpg";
+    hpaper.src = "images/paper.jpg";
+    hscissor.src = "images/Scissors.jpg";
+    hspock.src = "images/spock2.jpg";
+    
+    hrock.onload = function(){
+        draw(rock, paper, scissor, spock, rock, paper, scissor,spock );
+    }
+    hpaper.onload = function(){
+        draw(rock, paper, scissor, spock, rock, paper, scissor, spock);
+    }
+    
+    hscissor.onload = function(){
+        draw(rock, paper, scissor, spock,  rock, paper, scissor, spock);
     }
 
-    //Array of choices
+    hspock.onload = function(){
+        draw(rock, paper, scissor, spock, rock, paper,scissor, spock);
+    }
+
+    var results = "Pick an option from the buttons above."
+    
+    
     var rps = [];
     rps[0] = "Rock";
     rps[1] = "Paper";
     rps[2] = "Scissors";
     rps[3] = "Spock";
+    
+    //Array of Buttons
+    var btn = document.querySelectorAll('a');
+    //assign event listeners to the buttons
+    btn[0].addEventListener('click', function(e){play(0)});
+    btn[1].addEventListener('click', function(e){play(1)});
+    btn[2].addEventListener('click', function(e){play(2)});
+    btn[3].addEventListener('click', function(e){play(3)});
+    
+    function play(playersChoice){
+        var cpuChoice = Math.floor(Math.random() * 2.999);
+       // alert("Player Choice: " + rps[playersChoice] + " vs. Computer Choice: " + rps[cpuChoice]);
+    }
 
-    //Array of buttons
-     btn[0].innerHTML = rps[0];
-    btn[1].innerHTML = rps[1];
-    btn[2].innerHTML = rps[2];
 
-    //When Button is clicked play game
-    //event listener for rock
-    btn[0].addEventListener('click', function (e) {
-        play(0);
-    });
-
-    //event listener for paper
-    btn[1].addEventListener('click', function (e) {
-        play(1);
-    });
-
-    //event listener for scissors
-    btn[2].addEventListener('click', function (e) {
-        play(2);
-    });
-
-    function draw(rock, paper, scissors, crock, cpaper, cscissors){
+    function draw(rock, paper, scissor, spock, crock, cpaper, cscissor, cspock){
         ctx.clearRect(0,0,c.width,c.height);
-        ctx.fillRect(0,0, c.width,c.height);
-
+        ctx.fillRect(0,0,c.width,c.height);
+    
         ctx.save();
         ctx.font = "30px Arial";
         ctx.textAlign = "center";
         ctx.fillStyle = "white";
-        ctx.fillText("Player Choices", c.width/2, 100);
-        ctx.drawImage(rock, c.width/2 - rock.width/2 - 100, 150);
+        ctx.fillText("Player Choice", c.width/2, 100);
+        ctx.drawImage(rock, c.width/2 - rock.width/2 -100, 150);
         ctx.drawImage(paper, c.width/2 - paper.width/2, 150);
-        ctx.drawImage(scissors, c.width/2 - scissors.width/2 + 100, 150);
-
-        ctx.fillText("Computer Choices", c.width/2, 325);
+        ctx.drawImage(scissor, c.width/2 - scissor.width/2 + 100, 150);
+        ctx.drawImage(spock, c.width/2  + 150, 150, 100,100  );
+    
+        ctx.fillText("Computer Choice", c.width/2, 325);
         ctx.drawImage(crock, c.width/2 - rock.width/2 - 100, 375);
         ctx.drawImage(cpaper, c.width/2 - paper.width/2, 375);
-        ctx.drawImage(cscissors, c.width/2 - scissors.width/2 + 100, 375);
-
-        ctx.fillText(result, c.width/2, 525);
+        ctx.drawImage(cscissor, c.width/2 - scissor.width/2 + 100, 375);
+        ctx.drawImage(cspock, c.width/2  + 150, 375,100,100 );
+        //displays results
+        ctx.fillText(results, c.width/2, 525);    
+    
         ctx.restore();
     }
-
-    function play(playersChoice) {
-        var cpuChoice = Math.floor(Math.random() * 2.9999);
-
-        //example of switch case
-        switch (playersChoice) {
-            case 0:
-                if (cpuChoice === 0) {
-                   // alert("Cpu chose Rock, You Tied");
-                   result = "You Tie!"
-                   draw(hrock, paper, scissors, hrock, paper, scissors);
-
-                }
-                else if (cpuChoice === 1) {
-                    //alert("Cpu choses Paper, You Lose!");
-                    result = "You Lose!"
-                    draw(hrock, paper, scissors, rock, hpaper, scissors);
-                }
-                else {
-                    //alert("Cpu choses Scissors, You Win!");
-                    result = "You Win!"
-                    draw(hrock, paper, scissors, rock, paper, hscissors);
-                }
-                break;
-            case 1:
-                if (cpuChoice === 0) {
-                    //alert("Cpu chose Rock, You Win");
-                    result = "You Win!"
-                    draw(rock, hpaper, scissors, hrock, paper, scissors);
-                }
-                else if (cpuChoice === 1) {
-                    //alert("Cpu choses Paper, You Tied!");
-                    result = "You Tied!"
-                    draw(rock, hpaper, scissors, rock, hpaper, scissors);
-                }
-                else {
-                    //alert("Cpu choses Scissors, You Lose!");
-                    result = "You Lose!"
-                    draw(rock, hpaper, scissors, rock, paper, hscissors);
-                }
-                break;
-            case 2:
-                if (cpuChoice === 0) {
-                    //alert("Cpu chose Rock, You Lose");
-                    result = "You Lose!"
-                    draw(rock, paper, hscissors, hrock, paper, scissors);
-                }
-                else if (cpuChoice === 1) {
-                    //alert("Cpu choses Paper, You Win!");
-                    result = "You Win!"
-                    draw(rock, paper, hscissors, rock, hpaper, scissors);
-                }
-                else {
-                    //alert("Cpu choses Scissors, You Tied!");
-                    result = "You Tie!"
-                    draw(rock, paper, hscissors, rock, paper, hscissors);
-                }
-                break;
-
-        }
-    }
+    
 
     
+//Array of choices
+var rps = [];
+rps[0] = "Rock";
+rps[1] = "Paper";
+rps[2] = "Scissors";
+rps[3] = "Spock";
+
+//Array of buttons
+var btn = document.querySelectorAll('a');
+btn[0].innerHTML = rps[0];
+btn[1].innerHTML = rps[1];
+btn[2].innerHTML = rps[2];
+btn[3].innerHTML = rps[3];
+
+//When Button is clicked play game
+//event listener for rock
+btn[0].addEventListener('click', function(e){
+    play(0);
+}); 
+
+//event listener for paper
+btn[1].addEventListener('click', function(e){
+    play(1);
+}); 
+
+//event listener for scissors
+btn[2].addEventListener('click', function(e){
+    play(2);
+}); 
+
+//event listener for spock
+btn[3].addEventListener('click', function(e){
+    play(3);
+}); 
+
+function play(playersChoice){
+    var cpuChoice = Math.floor(Math.random()*2.9999);
+
+    //example of switch case
+    switch(playersChoice){
+        case 0: 
+            if(cpuChoice === 0){
+                draw(hrock, paper, scissor, spock, hrock, paper, scissor, spock)
+                //alert("Cpu chose Rock, You Tied");
+            }
+            else if(cpuChoice === 1){
+                draw(hrock, paper, scissor, spock, rock, hpaper, scissor, spock)
+              //alert("Cpu chose Paper, You Lose!");  
+            }
+            else if(cpuChoice === 2){
+                draw(hrock, paper, scissor, spock, rock, paper, hscissor, spock)
+                //alert("Cpu chose Scissors, You Win!");  
+            }
+            else{
+                draw(hrock, paper, scisssors, spock, rock, paper, scissors, hspock)
+                //alert("Cpu chose spock, YOu Lose!")
+            }
+        break;
+        case 1: 
+            if(cpuChoice === 0){
+                draw(rock, hpaper, scissor, spock, hrock, paper, scissor, spock)
+                //alert("Cpu chose Rock, You Win!");
+            }
+            else if(cpuChoice === 1){
+                draw(rock, hpaper, scissor, spock, rock, hpaper, scissor, spock)
+                //alert("Cpu chose Paper, You Tied!");  
+            }
+            else if (cpuChoice === 2){
+                draw(rock, hpaper, scissor, spock, rock, paper, hscissor, spock)
+                //alert("Cpu choses Scissors, You Lose!");  
+            }
+            else{
+                draw(rock, hpaper, scisssors, spock, rock, paper, scissors, hspock)
+                //alert("Cpu chose spock, You Lose!");
+            }
+        break;
+        case 2: 
+            if(cpuChoice === 0){
+                draw(rock, paper, hscissor, spock, hrock, paper, scissor, spock)
+                //alert("Cpu chose Rock, You Lose");
+            }
+            else if(cpuChoice === 1){
+                draw(rock, paper, hscissor, spock, rock, hpaper, scissor, spock)
+                //alert("Cpu chose Paper, You Win!");  
+            }
+            else if(cpuChoice === 2){
+                draw(rock, paper, hscissor, spock, rock, paper, hscissor, spock)
+                //alert("Cpu chose Scissors, You Tied!");  
+            }
+            else{
+                draw(rock, paper, scissor, hspock, rock, paper, scissor, hspock)
+                //alert("Cpu chose spock, You Lose!");
+            }
+        break;
+        case 3: 
+        if(cpuChoice === 0){
+            draw(rock, paper, scissor, hspock, hrock, paper, scissor, spock)
+            //alert("Cpu chose Rock, You Win");
+        }
+        else if(cpuChoice === 1){
+            draw(rock, paper, scissor, hspock, rock, hpaper, scissor, spock)
+            //alert("Cpu chose Paper, YoU Lose!");  
+        }
+        else if(cpuChoice === 2){
+            draw(rock, paper, scissor, hspock, rock, paper, hscissor, spock)
+            //alert("Cpu chose Scissors, You Win!");  
+        }
+        else{
+            draw(rock, paper, scissor, hspock, rock, paper, scissors, hspock)
+            //alert("Cpu chose spock, You Tied!")
+        }
+    }
 }
