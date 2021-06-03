@@ -1,20 +1,25 @@
 var canvas = document.getElementById("canvas")
 var ctx = canvas.getContext('2d')
 var timer = requestAnimationFrame(main)
-var ship
+var ship 
+var shipSprite = new Image() 
 var numAsteroids = 20
 var asteroids = []
+var asteroidSprite = new Image() 
 var gameOver = true
 var gameStates = []
 var currentState = 0
 var score = 0
 var highScore = 0
 
+shipSprite.src = "asteroidImages/eye.png";
+//asteroids.src = "asteroidImages/pizza.png";
 
-
-
-
+shipSprite.onload = function(){
+    main()
+}
 //utility functions
+
 function randomRange(high, low){
     return Math.random() * (high-low) + low
 
@@ -23,43 +28,64 @@ function randomRange(high, low){
 
 
 function gameStart(){
+
     //For Loop to create the instances of Asteroids
+
     for(var i = 0; i < numAsteroids; i++){
         asteroids[i] = new Asteroid()
+
+        
+
     }
 
 
-
-    //Create an instance of the PlayerShip
+     //Create an instance of the PlayerShip
     ship = new PlayerShip()
-}
-
-
+}   
+   
 
 //Constructor Function for Asteroid Class
+
 function Asteroid(){
+
     this.radius = randomRange(15,2)
-    this.y = randomRange(canvas.width - this.radius, this.radius)
-    this.x = randomRange(canvas.height + this.radius, this.radius) - canvas.height
+
+    this.x = randomRange(canvas.width - this.radius, this.radius) + canvas.width
+
+    this.y = randomRange(canvas.height - this.radius, this.radius) 
+
     this.vx = randomRange(10, 5)
+
     this.color = "white"
 
-
-
-    this.drawAsteroid = function(){
-        ctx.save()
-        ctx.beginPath()
-
-        ctx.fillStyle = this.color
-        ctx.arc(this.y, this.x, this.radius, 0, 2 * Math.PI, true)
-        ctx.closePath()
-        ctx.fill()
-        ctx.restore()
-        
-        
+    asteroids.onload = function(){
+        requestAnimationFrame();
     }
 
-    
+    this.drawAsteroid = function(){
+
+        ctx.save()
+
+        ctx.beginPath()
+
+        ctx.fillStyle = this.asteroids
+
+        ctx.arc(this.x, this.y, this.radius, 0, 2 * Math.PI, true)
+
+        ctx.closePath()
+        //draw asteroids here
+        
+
+        ctx.fill()
+
+        ctx.restore()
+
+
+
+    }
+
+
+
 }
 
 
@@ -79,7 +105,9 @@ document.addEventListener("keyup", pressKeyUp)
 function pressKeyDown(e){
 
     if (!gameOver) {
+
         if (e.keyCode == 87) {
+
             ship.up = true
 
         }
@@ -117,14 +145,23 @@ function pressKeyDown(e){
             if(currentState == 2){
 
                 //game over screen reatarts game
+
                 currentState = 0
+
                 //resets number of asteroids
+
                 numAsteroids = 20
+
                 //empties asteroids array
+
                 asteroids = []
+
                 //resets score
+
                 score = 0
+
                 gameStart()
+
                 main()
 
             }
@@ -132,11 +169,17 @@ function pressKeyDown(e){
             else{
 
                 //main screen starts game 
+
                 gameStart()
+
                 currentState = 1
+
                 gameOver = false
+
                 main()
+
                 scoreTimer()
+
                 console.log("space")
 
 
@@ -194,27 +237,16 @@ function pressKeyUp(e){
 //constructor function
 
 function PlayerShip(){
-
-    this.y = canvas.width/2
-
-    this.x = canvas.height/2
-
+    this.x = canvas.width/2
+    this.y = canvas.height/2
     this.w = 20
-
     this.h = 20
-
-    this.vy = 0
-
     this.vx = 0
-
+    this.vy = 0
     this.up = false
-
     this.down = false
-
     this.left = false
-
     this.right = false
-
     this.flamelength = 30
 
 
@@ -222,9 +254,9 @@ function PlayerShip(){
     this.drawShip = function(){
 
        ctx.save()
-
-        ctx.translate(this.y , this.x)
-
+        
+        ctx.translate(this.x, this.y)
+        ctx.rotate(90 * Math.PI/180)
         if(this.up || this.left || this.right){
 
             ctx.save()
@@ -238,9 +270,6 @@ function PlayerShip(){
                 ctx.fillStyle = "yellow"
 
             }else{
-
-                
-
                 this.flamelength = 30
 
                 ctx.fillStyle = "orange"
@@ -271,16 +300,18 @@ function PlayerShip(){
 
         ctx.beginPath()
 
-        ctx.moveTo(0, -10)
+        ctx.moveTo(0, -20)
 
-        ctx.lineTo(10, 10)
+        ctx.lineTo(10, 30)
 
-        ctx.lineTo(-10, 10)
+        ctx.lineTo(-10, 50)
 
         ctx.lineTo(0, -10)
 
         ctx.closePath()
 
+        //draw shipimage here
+        ctx.drawImage(shipSprite, 0,0,100, 100)
         ctx.fill();
 
         ctx.restore() 
@@ -291,29 +322,29 @@ function PlayerShip(){
 
     this.move = function(){
 
-        this.y += this.vy
-
         this.x += this.vx
+
+        this.y += this.vy
 
 
 
         //bottom boundary of screen
 
-        if(this.x > canvas.height - this.h/2){
+        if(this.y >  canvas.height - this.h/2){
 
-            this.x = canvas.height - this.h/2
+            this.y = canvas.height - this.h/2
 
-            this.vx = 0
+            this.vy = 0
 
         }
 
         //top boundary of screen
 
-        if(this.x < this.h/2){
+        if(this.y < this.h/2){
 
-            this.x = this.h/2
+            this.y = this.h/2
 
-            this.vx = 0
+            this.vy = 0
 
         }
 
@@ -321,21 +352,21 @@ function PlayerShip(){
 
         //right boundary of screen
 
-        if(this.y > canvas.width - this.w/2){
+        if(this.x > canvas.width - this.w/2){
 
-            this.y = canvas.width - this.w/2
+            this.x = canvas.width - this.w/2
 
-            this.vy = 0
+            this.vx = 0
 
         }
 
         //left boundary of screen
 
-        if(this.y < this.w/2){
+        if(this.x < this.w/2){
 
-            this.y = this.w/2
+            this.x = this.w/2
 
-            this.vy = 0
+            this.vx = 0
 
         }
 
@@ -348,23 +379,14 @@ function PlayerShip(){
 
 
 //Main Screen
-
 gameStates[0] = function(){
-
     ctx.save()
-
     ctx.font = "30px Arial"
-
     ctx.fillStyle = "white"
-
     ctx.textAlign = "center"
-
     ctx.fillText("Asteroid Avoider", canvas.width/2, canvas.height/2-30)
-
     ctx.font = "15px Arial"
-
     ctx.fillText("Press Space to Start", canvas.width/2, canvas.height/2 + 20)
-
     ctx.restore()
 
 
@@ -393,13 +415,13 @@ gameStates[1] = function(){
 
     //Vertical 
 
-    if(ship.left){
+    if(ship.right){
 
-        ship.vx = -10
+        ship.vx = 10
 
     }else{
 
-        ship.vx = 3
+        ship.vx = -3
 
     }
 
@@ -426,23 +448,16 @@ gameStates[1] = function(){
     //Loops through all asteroids and can check their position
 
     for(var i = 0; i < asteroids.length; i++){
-
-        var dY = ship.y - asteroids[i].y
-
         var dX = ship.x - asteroids[i].x
-
-        var distance = Math.sqrt((dY*dY)+(dX*dX))
+        var dY = ship.y - asteroids[i].y
+        var distance = Math.sqrt((dX*dX)+(dY*dY))
 
 
 
         if(detectCollision(distance, (ship.h/2 + asteroids[i].radius))){
-
             console.log("hit asteroid")
-
             gameOver = true
-
             currentState = 2
-
             main()
 
             
@@ -453,17 +468,17 @@ gameStates[1] = function(){
 
 
 
-        if(asteroids[i].x > canvas.height + asteroids[i].radius){
+        if(asteroids[i].x < - asteroids[i].radius){
 
-            asteroids[i].y = randomRange(canvas.width - asteroids[i].radius, asteroids[i].radius)
+            asteroids[i].x = randomRange(canvas.width - asteroids[i].radius, asteroids[i].radius) +  canvas.width
 
-            asteroids[i].x = randomRange(canvas.height - asteroids[i].radius, asteroids[i].radius) -  canvas.height
+            asteroids[i].y = randomRange(canvas.height - asteroids[i].radius, asteroids[i].radius) 
 
         }
 
         if(!gameOver){
 
-            asteroids[i].x += asteroids[i].vx
+            asteroids[i].x -= asteroids[i].vx
 
             asteroids[i].drawAsteroid()
 
@@ -543,7 +558,6 @@ function main(){
     //shipY-=1
 
     ctx.clearRect(0,0,canvas.width, canvas.height)
-
     gameStates[currentState]()
     if(!gameOver){
 

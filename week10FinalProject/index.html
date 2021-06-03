@@ -5,27 +5,32 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Asteroid Avoidance</title>
     <style>
-        html, body{
+        html{
             display: flex;
             justify-content: center;
-            background-color: black;
-
+            background-color: grey;
+        } 
+        #body{
+            display: flex;
+            justify-content: center;
+            background-color: grey;
+            
         }
         #canvas{
-            border: 10px solid blue;
+            border: 20px solid blue;
+            background-image: url("asteroidImages/backgroundImage.jpg")
         }
         #footer{
             display: flex;
-            text-emphasis-color: red;
-            background-color: black; 
+            justify-content: center;
         }
-    
-  
         </style>
 </head>
 <body>
-    <canvas id="canvas" width="800" height="600" style="border: 1px solid black ;"></canvas>
+        
+    <canvas id="canvas" width="800" height="600" style="border: 1px solid blue ;"></canvas>
     <script src="Asteroidavoider.js"></script>
+   
 </body>
-<footer> @ HTML & Javascript 2021</footer>
+<footer>@ HTML/Javascript 2021</footer>
 </html>
