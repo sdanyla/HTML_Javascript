@@ -446,7 +446,7 @@ gameStates[1] = function(){
     for(var i = 0; i < asteroids.length; i++){
         var dX = ship.x - asteroids[i].x
         var dY = ship.y - asteroids[i].y
-        var asteroidSprite = new Image(dX, dY)
+        let img = document.getElementById("asteroidSprite");
         var distance = Math.sqrt((dX*dX)+(dY*dY))
 
 
